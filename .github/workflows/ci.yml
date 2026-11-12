@@ -11,7 +11,9 @@ permissions:
 jobs:
   test:
     name: tests (py${{ matrix.python-version }})
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest now resolves to 26.04, which has no setup-python
+    # builds for Python 3.9 (published for 22.04/24.04 only).
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -31,7 +33,7 @@ jobs:
 
   build:
     name: build sdist + wheel
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
